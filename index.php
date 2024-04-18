@@ -9,11 +9,12 @@
 </head>
 
 <body>
-    <div class="principal">
-        <div class="container">
+    <div class="container">
+        <div class="form">
             <form method="post" action="calculo.php">
                 <h2>Selecionar Produto</h2>
                 <div class="select-container">
+                    <label for="rack">Selecione o rack:</label>
                     <select name="rack" id="rack">
                         <option value="" disabled selected>Selecione o rack</option>
                         <option value="MINI RACK 3X300 34X22X57" id="0">MINI RACK 3X300 34X22X57</option>
@@ -25,20 +26,21 @@
                         <option value="MINI RACK 7X450 49x39x56" id="6">MINI RACK 7X450 49x39x56</option>
                     </select>
                 </div>
+                <div class="select-quantidade">
+                    <label for="quantidade">Quantidade de itens:</label>
+                    <input type="number" name="quantidade" id="quantidade" placeholder="Quantidade de itens">
+                </div>
+
                 <div class="button-container">
                     <input type="submit" class="button calcular" name="calcular" value="Calcular">
-                    <input type="submit" class="button cadastrar" name="cadastro_produto" value="Cadastrar Produto">
                 </div>
+            </form>
+
+            <form method="post" action="cadastro_produto.php">
+                <input type="submit" class="button cadastrar" name="cadastro_produto" value="Cadastrar Produto">
             </form>
         </div>
     </div>
 </body>
 
 </html>
-
- <?php
-/* 1. Preciso fazer um local onde o usuário consiga selecionar o produto que vai ser separado.
-	a. Utilizar um select para selecionar o produto. (Ou realizar um filtro para buscar no banco)
-	b. Criar um banco para armazenar os valores de dimensão de cada produto
-    c. Realizar uma maneira de cadastrar os produtos, com sua dimensão especifica e salvar no banco de dados.
-*/
