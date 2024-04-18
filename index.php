@@ -12,32 +12,37 @@
     <div class="container">
         <div class="form">
             <form method="post" action="calculo.php">
-                <h2>Selecionar Produto</h2>
+                <h2>Informações do produto</h2>
                 <div class="select-container">
-                    <label for="rack">Selecione o rack:</label>
-                    <select name="rack" id="rack">
-                        <option value="" disabled selected>Selecione o rack</option>
-                        <option value="MINI RACK 3X300 34X22X57" id="0">MINI RACK 3X300 34X22X57</option>
-                        <option value="MINI RACK 4X450 50X26X56" id="1">MINI RACK 4X450 50X26X56</option>
-                        <option value="MINI RACK 5X350 39X30X56" id="2">MINI RACK 5X350 39X30X56</option>
-                        <option value="MINI RACK 5X450 49X30X56" id="3">MINI RACK 5X450 49X30X56</option>
-                        <option value="MINI RACK 6X450 49X35X56" id="4">MINI RACK 6X450 49X35X56</option>
-                        <option value="MINI RACK 7X350 39X39X56" id="5">MINI RACK 7X350 39X39X56</option>
-                        <option value="MINI RACK 7X450 49x39x56" id="6">MINI RACK 7X450 49x39x56</option>
-                    </select>
-                </div>
-                <div class="select-quantidade">
-                    <label for="quantidade">Quantidade de itens:</label>
-                    <input type="number" name="quantidade" id="quantidade" placeholder="Quantidade de itens">
-                </div>
+                    <div class="input-group">
+                        <label for="descricao">Descrição do Item:</label>
+                        <input type="text" name="descricao" id="descricao" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="comprimento-cadastro">Comprimento do Item:</label>
+                        <input type="number" name="comprimento" id="comprimento" step="any" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="largura">Largura do Item:</label>
+                        <input type="number" name="largura" id="largura" step="any" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="altura">Altura do Item:</label>
+                        <input type="number" name="altura" id="altura" step="any" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="peso-cadastro">Peso do Item:</label>
+                        <input type="number" name="peso" id="peso" step="any" required>
+                    </div>
 
-                <div class="button-container">
-                    <input type="submit" class="button calcular" name="calcular" value="Calcular">
+                    <div class="select-quantidade">
+                        <label for="quantidade">Quantidade de itens:</label>
+                        <input type="number" name="quantidade" id="quantidade" placeholder="Quantidade de itens" required>
+                    </div>
+                    <div class="button-container">
+                        <input type="submit" class="button calcular" name="calcular" value="Calcular">
+                    </div>
                 </div>
-            </form>
-
-            <form method="post" action="cadastro_produto.php">
-                <input type="submit" class="button cadastrar" name="cadastro_produto" value="Cadastrar Produto">
             </form>
         </div>
     </div>
