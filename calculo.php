@@ -9,7 +9,7 @@ $peso = filter_input(INPUT_POST, 'peso');
 $quantidade = filter_input(INPUT_POST, 'quantidade');
 
 if($descricao && $comprimento && $largura && $altura && $peso && $quantidade) {
-    $tamanhoItem = $comprimento * $largura * $altura * $quantidade;
+    $volumeItem = $comprimento * $largura * $altura * $quantidade;
     if ($descricao > $comprimento) { //só teste
         echo "teste";
     }
