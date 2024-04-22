@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto Caixa</title>
     <link href="style.css" rel="stylesheet">
+    <script>
+        window.onload = function () {
+        document.getElementById('incluir').addEventListener('click', function (event) {
+            event.preventDefault(); // Evita que o formulário seja enviado
+            limparCampos(); // Limpa os campos sem enviar o formulário
+        });
+
+        document.getElementById('calcular').addEventListener('click', function (event) {
+            // Aqui, não precisamos evitar que o formulário seja enviado,
+            // pois queremos que ele seja enviado para o arquivo PHP
+        });
+
+        function limparCampos() {
+            document.getElementById('descricao').value = '';
+            document.getElementById('comprimento').value = '';
+            document.getElementById('largura').value = '';
+            document.getElementById('altura').value = '';
+            document.getElementById('peso').value = '';
+            document.getElementById('quantidade').value = '';
+        }
+    };
+    </script>
+    
 </head>
 
 <body>
@@ -41,7 +64,7 @@
                     </div>
                     <div class="button-container">
                         <input type="submit" class="button calcular" name="calcular" value="Calcular">
-                        <button onclick="incluirItens()" id="inclur" class="button itens">Outro Item</button>
+                        <button id="incluir" class="button itens">Outro Item</button>
                     </div>
                 </div>
             </form>
