@@ -31,8 +31,8 @@ $item["largura"] *= $item["quantidade"];
 $item["altura"] *= $item["quantidade"];
 
 $encaixou = false;
-foreach ($caixas as $chave => $caixa) {
-    if ($item["comprimento"] <= $caixa["comprimento"] && $item["largura"] <= $caixa["largura"] && $item["altura"] <= $caixa["altura"]) {
+foreach ($caixas as $chave => $value) {
+    if ($item["comprimento"] <= $value["comprimento"] && $item["largura"] <= $value["largura"] && $item["altura"] <= $value["altura"]) {
         echo "Item vai para caixa $chave";
         $encaixou = true;
         break;
