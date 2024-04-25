@@ -1,6 +1,7 @@
 <?php
 
 $item = array (
+    "nome"=> "Rack",
     "comprimento" => 1,
     "largura" => 1,
     "altura" => 30,
@@ -9,17 +10,17 @@ $item = array (
 );
 
 $caixas = array (
-    "caixaP" => array (
+    "caixa P" => array (
         "comprimento" => 28,
         "largura" => 27,
         "altura" => 35
     ),
-    "caixaM" => array (
+    "caixa M" => array (
         "comprimento" => 38,
         "largura" => 24,
         "altura" => 56
     ),
-    "caixaG" => array (
+    "caixa G" => array (
         "comprimento" => 41,
         "largura" => 35,
         "altura" => 61
@@ -33,7 +34,7 @@ $item["altura"] *= $item["quantidade"];
 $encaixou = false;
 foreach ($caixas as $chave => $value) {
     if ($item["comprimento"] <= $value["comprimento"] && $item["largura"] <= $value["largura"] && $item["altura"] <= $value["altura"]) {
-        echo "Item vai para caixa $chave";
+        echo "O ". $item["nome"]. " vai para ". $chave;
         $encaixou = true;
         break;
     }
