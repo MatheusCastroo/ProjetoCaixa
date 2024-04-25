@@ -1,6 +1,44 @@
 <?php
-$caixa = array (
-    0 => "$dimensao",
 
-    //https://www.youtube.com/watch?v=g8Gr2NIMxQQ 20:00
+$item = array (
+    "comprimento" => 1,
+    "largura" => 1,
+    "altura" => 30,
+    "peso" => 7,
+    "quantidade" => 2  
 );
+
+$caixas = array (
+    "caixaP" => array (
+        "comprimento" => 28,
+        "largura" => 27,
+        "altura" => 35
+    ),
+    "caixaM" => array (
+        "comprimento" => 38,
+        "largura" => 24,
+        "altura" => 56
+    ),
+    "caixaG" => array (
+        "comprimento" => 41,
+        "largura" => 35,
+        "altura" => 61
+    )
+);
+
+$item["comprimento"] *= $item["quantidade"];
+$item["largura"] *= $item["quantidade"];
+$item["altura"] *= $item["quantidade"];
+
+$encaixou = false;
+foreach ($caixas as $chave => $caixa) {
+    if ($item["comprimento"] <= $caixa["comprimento"] && $item["largura"] <= $caixa["largura"] && $item["altura"] <= $caixa["altura"]) {
+        echo "Item vai para caixa $chave";
+        $encaixou = true;
+        break;
+    }
+}
+if (!$encaixou) {
+    echo "Joga a mercadoria no caminhão sem caixa mesmo.";
+}
+?>

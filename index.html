@@ -9,13 +9,12 @@
     <script>
         window.onload = function () {
         document.getElementById('incluir').addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que o formulário seja enviado
-            limparCampos(); // Limpa os campos sem enviar o formulário
+            event.preventDefault();
+            limparCampos();
         });
 
         document.getElementById('calcular').addEventListener('click', function (event) {
-            // Aqui, não precisamos evitar que o formulário seja enviado,
-            // pois queremos que ele seja enviado para o arquivo PHP
+        
         });
 
         function limparCampos() {
