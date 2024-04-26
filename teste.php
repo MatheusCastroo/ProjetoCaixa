@@ -1,5 +1,4 @@
 <?php
-
 $item = array (
     "nome"=> "Rack",
     "comprimento" => 1,
@@ -43,3 +42,6 @@ if (!$encaixou) {
     echo "Joga a mercadoria no caminhão sem caixa mesmo.";
 }
 ?>
+<form method="post" action="index.php">
+    
+<input type="submit" name="voltar" value="Voltar">
