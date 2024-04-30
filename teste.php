@@ -66,18 +66,14 @@ foreach ($caixas as $chave => $caixa) {
 // Se não couber em uma única caixa, tenta combinações de caixas
 if (!$encaixou) {
     $combinacoes = array(
-        array("P", "P"),
-        array("P", "M"),
+        array("P", "G"),
         array("M", "M"),
         array("M", "G"),
         array("G", "G"),
-        array("P", "M", "G"),
-        array("P", "P", "M"),
-        array("P", "P", "G"),
-        array("P", "M", "M"),
-        array("M", "M", "G")
+        array("M", "M", "G"),
+        array("M", "G", "G"),
+        array("G", "G", "G")   
     );
-
     foreach ($combinacoes as $comb) {
         $volume_combinado = 0;
         foreach ($comb as $tamanho) {
