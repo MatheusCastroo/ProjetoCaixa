@@ -26,7 +26,7 @@ $itens = array(
         "quantidade" => 4
     ),
 );
-//Calculo da cubagem
+
 $total_volume = 0;
 
 foreach ($itens as $item) {
@@ -54,7 +54,7 @@ $caixas = array(
 
 $encaixou = false;
 
-// Verifica se os itens cabem em uma única caixa
+
 foreach ($caixas as $chave => $caixa) {
     if ($total_volume <= $caixa["comprimento"] * $caixa["largura"] * $caixa["altura"]) {
         echo "Os itens vão para caixa " . $chave;
@@ -63,7 +63,7 @@ foreach ($caixas as $chave => $caixa) {
     }
 }
 
-// Se não couber em uma única caixa, tenta combinações de caixas
+
 if (!$encaixou) {
     $combinacoes = array(
         array("P", "G"),
