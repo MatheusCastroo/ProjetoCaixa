@@ -40,19 +40,16 @@ $caixas = array(
         "comprimento" => 28,
         "largura" => 27,
         "altura" => 35,
-        "peso_maximo" => 20
     ),
     "M" => array(
         "comprimento" => 38,
         "largura" => 24,
         "altura" => 56,
-        "peso_maximo" => 30
     ),
     "G" => array(
         "comprimento" => 41,
         "largura" => 35,
         "altura" => 61,
-        "peso_maximo" => 40
     )
 );
 
