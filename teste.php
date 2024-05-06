@@ -11,8 +11,8 @@ $itens = array(
     array(
         "nome" => "Segundo Rack",
         "comprimento" => 35,
-        "largura" => 30,
-        "altura" => 31,
+        "largura" => 22,
+        "altura" => 55,
         "peso" => 7,
         "quantidade" => 10
     ),
@@ -56,6 +56,13 @@ $caixas = array(
 $encaixou = false;
 $itens_caixa = array(); //Armazenar os itens
 
+// Ordenar as caixas do menor para o maior volume
+uasort($caixas, function($a, $b) {
+    $volumeA = $a['comprimento'] * $a['largura'] * $a['altura'];
+    $volumeB = $b['comprimento'] * $b['largura'] * $b['altura'];
+    return $volumeA - $volumeB;
+});
+
 foreach ($itens as $item) {
     $item_encaixado = false;
     foreach ($caixas as $chave => $caixa) {
@@ -71,9 +78,9 @@ foreach ($itens as $item) {
         }
     }
     //Caso não couber, verificar:
-        if (!$item_encaixado) {
-            echo "O item ". $item['nome']. "com dimensões ". $item['comprimento']."x".$item['largura']."x".$item['altura']. "não pode ser encaixado em nenhuma caixa. <br>";
-        }
+    if (!$item_encaixado) {
+        echo "O item ". $item['nome']. "com dimensões ". $item['comprimento']."x".$item['largura']."x".$item['altura']. "não pode ser encaixado em nenhuma caixa. <br>";
+    }
 }
 
 //Itens inserido em cada caixa
@@ -85,7 +92,7 @@ foreach ($itens_caixa as $chave => $itens_na_caixa) {
     //Peso total
     $peso_caixa = 0;
     foreach ($itens_na_caixa as $item) {
-    $peso_caixa += $item["peso"] * $item["quantidade"];
+        $peso_caixa += $item["peso"] * $item["quantidade"];
     }
     echo "</ul><p>Peso total: $peso_caixa kg.</p><br>";
     $encaixou = true;
