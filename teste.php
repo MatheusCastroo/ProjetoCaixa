@@ -26,22 +26,22 @@ $itens = array(
     ),
 );
 
-$total_volume = 0;
-$total_peso = 0;
-
-// Calculo de cubagem
-foreach ($itens as $item) {
-    $volume_item = $item["comprimento"] * $item["largura"] * $item["altura"] * $item["quantidade"];
-    $total_volume += $volume_item;
-    $total_peso += $item["peso"] * $item["quantidade"];
+// Função para calcular o volume de um item
+function calcularVolume($item) {
+    return $item["comprimento"] * $item["largura"] * $item["altura"];
 }
 
+// Ordenando itens por volume (do maior para o menor)
+usort($itens, function($a, $b) {
+    return calcularVolume($b) - calcularVolume($a);
+});
+
 $caixas = array(
-    "P" => array(
-        "comprimento" => 28,
-        "largura" => 27,
-        "altura" => 35,
-        "peso_maximo" => 20
+    "G" => array(
+        "comprimento" => 41,
+        "largura" => 35,
+        "altura" => 61,
+        "peso_maximo" => 60
     ),
     "M" => array(
         "comprimento" => 38,
@@ -49,79 +49,48 @@ $caixas = array(
         "altura" => 56,
         "peso_maximo" => 40
     ),
-    "G" => array(
-        "comprimento" => 41,
-        "largura" => 35,
-        "altura" => 61,
-        "peso_maximo" => 60
+    "P" => array(
+        "comprimento" => 28,
+        "largura" => 27,
+        "altura" => 35,
+        "peso_maximo" => 20
     )
 );
 
-$encaixou = false;
-$itens_caixa = array(); // Armazenar os itens
-
-// Ordenar as caixas do menor para o maior volume
-uasort($caixas, function ($a, $b) {
-    $volumeA = $a['comprimento'] * $a['largura'] * $a['altura'];
-    $volumeB = $b['comprimento'] * $b['largura'] * $b['altura'];
-    return $volumeA - $volumeB;
-});
+$itens_caixa = array(); // Armazenar os itens em caixas
+$quantidade_caixas = array(); // Armazenar a quantidade de caixas utilizadas
 
 foreach ($itens as $item) {
-    // Verificar se é possível encaixar todos os itens em uma única caixa
-    $item_encaixado = false;
-    foreach ($caixas as $chave => $caixa) {
-        if (
+    $item_restante = $item['quantidade'];
+    foreach ($caixas as $tamanho => $caixa) {
+        while (
+            $item_restante > 0 &&
             $item["comprimento"] <= $caixa["comprimento"] &&
             $item["largura"] <= $caixa["largura"] &&
             $item["altura"] <= $caixa["altura"] &&
-            ($item["peso"] * $item['quantidade']) <= $caixa["peso_maximo"]
+            $item["peso"] * $item_restante <= $caixa["peso_maximo"]
         ) {
-            // Encaixar todos os itens nesta caixa
-            $quantidade_caixa = $item['quantidade'];
-            $itens_caixa[$chave][] = array_merge($item, array("quantidade" => $quantidade_caixa));
-            $item_encaixado = true;
-            break;
-        }
-    }
-
-    // Caso não seja possível encaixar todos os itens em uma única caixa, distribuir em várias caixas menores
-    if (!$item_encaixado) {
-        $item_restante = $item['quantidade']; // quantidade de itens que ainda precisam ser encaixados
-        foreach ($caixas as $chave => $caixa) {
-            while (
-                $item_restante > 0 &&
-                $item["comprimento"] <= $caixa["comprimento"] &&
-                $item["largura"] <= $caixa["largura"] &&
-                $item["altura"] <= $caixa["altura"] &&
-                ($item["peso"] * $item['quantidade']) <= $caixa["peso_maximo"]
-            ) {
-                // Verificar quantos itens cabem na caixa
-                $quantidade_caixa = floor($caixa["peso_maximo"] / ($item["peso"] * $item['quantidade']));
-                $quantidade_caixa = min($quantidade_caixa, $item_restante); // não pode ser mais do que os itens restantes
-                $itens_caixa[$chave][] = array_merge($item, array("quantidade" => $quantidade_caixa)); // incluir na lista de itens para essa caixa
-                $item_restante -= $quantidade_caixa; // atualizar a quantidade restante de itens
-            }
+            // Verificar quantos itens cabem na caixa
+            $quantidade_caixa = min(floor($caixa["peso_maximo"] / $item["peso"]), $item_restante);
+            $itens_caixa[$tamanho][] = array_merge($item, array("quantidade" => $quantidade_caixa)); // incluir na lista de itens para essa caixa
+            $item_restante -= $quantidade_caixa; // atualizar a quantidade restante de itens
         }
     }
 }
 
-// Itens inseridos em cada caixa
-foreach ($itens_caixa as $chave => $itens_na_caixa) {
-    echo "<p> Itens na caixa $chave: </p><ul>";
-    foreach ($itens_na_caixa as $item) {
+// Calcular a quantidade de caixas utilizadas
+foreach ($itens_caixa as $tamanho => $itens_na_caixa) {
+    $quantidade_caixas[$tamanho] = count($itens_na_caixa);
+}
+
+// Mostrar resultados
+echo "<p>Quantidade de caixas utilizadas:</p>";
+foreach ($quantidade_caixas as $tamanho => $quantidade) {
+    echo "<p>Caixa $tamanho: $quantidade</p>";
+    echo "<p>Itens na caixa $tamanho:</p><ul>";
+    foreach ($itens_caixa[$tamanho] as $item) {
         echo "<li>" . $item['quantidade'] . " unidades do item: " . $item['nome'] . " </li>";
     }
-    // Peso total
-    $peso_caixa = 0;
-    foreach ($itens_na_caixa as $item) {
-        $peso_caixa += $item["peso"] * $item["quantidade"];
-    }
-    echo "</ul><p>Peso total: $peso_caixa kg.</p><br>";
-    $encaixou = true;
-}
-
-if (!$encaixou) {
-    echo "ERRO, Verifique os dados!";
+    echo "</ul>";
 }
 ?>
