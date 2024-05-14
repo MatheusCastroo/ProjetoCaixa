@@ -7,7 +7,7 @@ $itens = array(
         "altura" => 30,
         "peso" => 7,
         "quantidade" => 5,
-        "pesoMaximo" => 30
+       
     ),
     array(
         "nome" => "Segundo Rack",
@@ -16,7 +16,7 @@ $itens = array(
         "altura" => 55,
         "peso" => 7,
         "quantidade" => 10,
-        "pesoMaximo" => 60
+        
 
     ),
     array(
@@ -26,7 +26,7 @@ $itens = array(
         "altura" => 30,
         "peso" => 7,
         "quantidade" => 200,
-        "pesoMaximo" => 80
+        
     ),
 );
 $total_volume = 0;
@@ -44,16 +44,19 @@ $caixas = array(
         "comprimento" => 28,
         "largura" => 27,
         "altura" => 35,
+        "pesoMaximo" => 30
     ),
     "M" => array(
         "comprimento" => 38,
         "largura" => 24,
         "altura" => 56,
+        "pesoMaximo" => 60
     ),
     "G" => array(
         "comprimento" => 41,
         "largura" => 35,
         "altura" => 61,
+        "pesoMaximo" => 80
     )
 );
 
