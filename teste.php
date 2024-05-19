@@ -58,6 +58,7 @@ $caixas = array(
 );
 
 $itens_caixa = array(); // Armazenar os itens
+$caixas_utilizadas = array("P" => 0, "M" => 0, "G" => 0); // Contador de caixas utilizadas
 
 foreach ($itens as $item) {
     $quantidade_restante = $item["quantidade"];
@@ -66,6 +67,16 @@ foreach ($itens as $item) {
         $item_encaixado = false;
         
         foreach ($caixas as $chave => $caixa) {
+            $caixa_id = $chave . "_" . $caixas_utilizadas[$chave]; // ID único para cada caixa
+            
+            if (!isset($itens_caixa[$caixa_id])) {
+                $itens_caixa[$caixa_id] = array(
+                    "tipo" => $chave,
+                    "itens" => array(),
+                    "peso_atual" => 0
+                );
+            }
+            
             if (
                 ($item["comprimento"] <= $caixa["comprimento"] &&
                  $item["largura"] <= $caixa["largura"] &&
@@ -92,13 +103,9 @@ foreach ($itens as $item) {
                  $item["comprimento"] <= $caixa["altura"])
             ) {
                 // Verifica se o peso total não ultrapassa o peso máximo da caixa
-                $peso_caixa_atual = isset($itens_caixa[$chave]) ? array_reduce($itens_caixa[$chave], function($carry, $item) {
-                    return $carry + $item["peso"] * $item["quantidade"];
-                }, 0) : 0;
-                
-                if ($peso_caixa_atual + $item["peso"] <= $caixa["pesoMaximo"]) {
+                if ($itens_caixa[$caixa_id]["peso_atual"] + $item["peso"] <= $caixa["pesoMaximo"]) {
                     // Caso couber na caixa, incluir na lista de itens para essa caixa.
-                    $itens_caixa[$chave][] = array(
+                    $itens_caixa[$caixa_id]["itens"][] = array(
                         "nome" => $item["nome"],
                         "comprimento" => $item["comprimento"],
                         "largura" => $item["largura"],
@@ -106,6 +113,7 @@ foreach ($itens as $item) {
                         "peso" => $item["peso"],
                         "quantidade" => 1 // Adiciona uma unidade por vez
                     );
+                    $itens_caixa[$caixa_id]["peso_atual"] += $item["peso"];
                     $quantidade_restante--;
                     $item_encaixado = true;
                     break;
@@ -113,21 +121,20 @@ foreach ($itens as $item) {
             }
         }
         
-        // Caso não couber em nenhuma caixa
+        // Caso não couber em nenhuma caixa atual, criar uma nova caixa do mesmo tipo
         if (!$item_encaixado) {
-            echo "O item " . $item['nome'] . " com dimensões " . $item['comprimento'] . "x" . $item['largura'] . "x" . $item['altura'] . " não pode ser encaixado em nenhuma caixa. <br>";
-            break;
+            $caixas_utilizadas[$chave]++;
         }
     }
 }
 
 // Itens inseridos em cada caixa
-foreach ($itens_caixa as $chave => $itens_na_caixa) {
-    echo "<p>Itens na caixa $chave:</p><ul>";
+foreach ($itens_caixa as $caixa_id => $dados_caixa) {
+    echo "<p>Itens na caixa $caixa_id ({$dados_caixa['tipo']}):</p><ul>";
     $quantidade_por_item = array();
     
     // Agrupar quantidades de itens iguais
-    foreach ($itens_na_caixa as $item) {
+    foreach ($dados_caixa["itens"] as $item) {
         if (isset($quantidade_por_item[$item["nome"]])) {
             $quantidade_por_item[$item["nome"]]["quantidade"]++;
         } else {
@@ -139,12 +146,12 @@ foreach ($itens_caixa as $chave => $itens_na_caixa) {
         echo "<li>" . $item['quantidade'] . " unidades do item: " . $item['nome'] . "</li>";
     }
 
-    // Peso total
-    $peso_caixa = array_reduce($itens_na_caixa, function($carry, $item) {
-        return $carry + $item["peso"] * $item["quantidade"];
-    }, 0);
-    
-    echo "</ul><p>Peso total: $peso_caixa kg.</p><br>";
+    echo "</ul><p>Peso total: {$dados_caixa['peso_atual']} kg.</p><br>";
+}
+
+// Quantidade final de caixas utilizadas
+foreach ($caixas_utilizadas as $tipo => $quantidade) {
+    echo "<p>Caixas $tipo utilizadas: " . ($quantidade + 1) . "</p>";
 }
 
 if (empty($itens_caixa)) {
