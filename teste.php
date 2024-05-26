@@ -38,21 +38,21 @@ foreach ($itens as $item) {
 
 $caixas = array(
     "P" => array(
-        "comprimento" => 28,
-        "largura" => 27,
-        "altura" => 35,
+        "comprimento" => 35,
+        "largura" => 28,
+        "altura" => 27,
         "pesoMaximo" => 30
     ),
     "M" => array(
-        "comprimento" => 38,
-        "largura" => 24,
-        "altura" => 56,
+        "comprimento" => 56,
+        "largura" => 38,
+        "altura" => 24,
         "pesoMaximo" => 60
     ),
     "G" => array(
-        "comprimento" => 41,
-        "largura" => 35,
-        "altura" => 61,
+        "comprimento" => 61,
+        "largura" =>415,
+        "altura" => 35,
         "pesoMaximo" => 80
     )
 );
