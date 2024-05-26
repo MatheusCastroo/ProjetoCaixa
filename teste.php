@@ -6,23 +6,23 @@ $itens = array(
         "largura" => 15,
         "altura" => 30,
         "peso" => 7,
-        "quantidade" => 5,
+        "quantidade" => 1,
     ),
     array(
-        "nome" => "Segundo Rack",
-        "comprimento" => 35,
-        "largura" => 22,
-        "altura" => 55,
-        "peso" => 7,
-        "quantidade" => 10,
-    ),
-    array(
-        "nome" => "Terceiro Rack",
-        "comprimento" => 20,
-        "largura" => 20,
+        "nome" => "Segundo Item",
+        "comprimento" => 28,
+        "largura" => 15,
         "altura" => 30,
         "peso" => 7,
-        "quantidade" => 200,
+        "quantidade" => 26,
+    ),
+    array(
+        "nome" => "Terceiro Item",
+        "comprimento" => 28,
+        "largura" => 15,
+        "altura" => 30,
+        "peso" => 7,
+        "quantidade" => 8,
     ),
 );
 
@@ -128,6 +128,13 @@ foreach ($itens as $item) {
     }
 }
 
+// Corrigir a contagem de caixas utilizadas
+foreach ($caixas_utilizadas as $tipo => $quantidade) {
+    if (isset($itens_caixa[$tipo . "_" . $quantidade])) {
+        $caixas_utilizadas[$tipo]++;
+    }
+}
+
 // Itens inseridos em cada caixa
 foreach ($itens_caixa as $caixa_id => $dados_caixa) {
     echo "<p>Itens na caixa $caixa_id ({$dados_caixa['tipo']}):</p><ul>";
@@ -151,7 +158,7 @@ foreach ($itens_caixa as $caixa_id => $dados_caixa) {
 
 // Quantidade final de caixas utilizadas
 foreach ($caixas_utilizadas as $tipo => $quantidade) {
-    echo "<p>Caixas $tipo utilizadas: " . ($quantidade + 1) . "</p>";
+    echo "<p>Caixas $tipo utilizadas: " . $quantidade . "</p>";
 }
 
 if (empty($itens_caixa)) {
