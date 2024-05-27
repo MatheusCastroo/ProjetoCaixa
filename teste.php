@@ -51,7 +51,7 @@ $caixas = array(
     ),
     "G" => array(
         "comprimento" => 61,
-        "largura" =>415,
+        "largura" => 41,
         "altura" => 35,
         "pesoMaximo" => 80
     )
