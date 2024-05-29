@@ -101,12 +101,19 @@ foreach ($itens as $item) {
         // Caso não couber em nenhuma caixa atual, criar uma nova caixa do mesmo tipo
         if (!$item_encaixado) {
             foreach ($caixas as $chave => $caixa) {
-                if ($caixa_id == $chave . "_" . $caixas_utilizadas[$chave]) {
+                if ($caixa_id == $chave . " - " . $caixas_utilizadas[$chave]) {
                     $caixas_utilizadas[$chave]++;
                     break;
+                
+                }
+                else {
+                    echo 'O item não cabe em nenhuma caixa'; 
+                    break; 
                 }
             }
+           
         }
+        
     }
 }
 
